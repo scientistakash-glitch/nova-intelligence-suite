@@ -1,0 +1,9 @@
+deductor_name,tan,tds_section,nature_of_payment,payment_amount,tds_rate_percent,expected_tds,quarter,certificate_received,certificate_amount,status,shortfall,notes
+Citadel Finance,MUMF12345A,194C,Contract payments,8400000,1,84000,Q4 FY26,No,0,Missing + Section Mismatch,84000,Should be 194J — financial services firm
+Prism Telecom,MUMF23456B,194C,Contract payments,2400000,1,24000,Q4 FY26,Yes,21000,Amount Mismatch,3000,Certificate shows Rs 2.1L not Rs 2.4L
+Spectrum Events,MUMF34567C,194J,Professional services,4800000,10,48000,Q4 FY26,No,0,Missing,48000,No response in 15 days
+Nexgen Technologies,MUMF45678D,194J,Professional services,3600000,10,36000,Q4 FY26,Yes,36000,Matched,0,Fully confirmed
+Vanguard Steel Ltd,MUMF56789E,194C,Contract payments,6200000,1,62000,Q4 FY26,Yes,62000,Matched,0,Fully confirmed
+Zenith Software,MUMF67890F,194J,Professional services,7800000,10,78000,Q4 FY26,Yes,78000,Matched,0,Fully confirmed
+Meridian Motors,MUMF78901G,194C,Contract payments,4200000,1,42000,Q4 FY26,Yes,42000,Matched,0,Fully confirmed
+Evergreen Consumer Products,MUMF89012H,194C,Contract payments,11000000,1,110000,Q4 FY26,Yes,110000,Matched,0,Resolved in January

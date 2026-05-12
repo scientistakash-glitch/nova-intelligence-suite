@@ -1,0 +1,11 @@
+vendor_name,gstin,invoice_number,booked_amount,amount_in_2b,status,itc_at_risk,notes
+Pinnacle Industries,27AACCP1234R1ZX,INV-4502,324000,204000,Mismatch,120000,Amount difference — vendor may have filed partial
+Prism Telecom,27AABCP5678R1ZY,INV-4504,241000,0,Missing,241000,Vendor has not filed GSTR-1 for March
+Spectrum Events,27AACCS9012R1ZZ,INV-4508,218000,0,GSTIN Cancelled,218000,GSTIN cancelled on 15 Feb — ITC not claimable
+Meridian Motors,27AACCM3456R1ZW,INV-4503,324000,318000,Mismatch,6000,₹6K difference — vendor contacted
+Evergreen Consumer Products,27AACCE7890R1ZV,INV-4505,186500,138500,Mismatch,48000,Partial qty filed by vendor
+Vanguard Steel Ltd,27AACCV2345R1ZU,INV-4501,482000,482000,Matched,0,Fully reconciled
+Nexgen Technologies,27AACCN6789R1ZT,INV-4506,186500,186500,Matched,0,Fully reconciled
+Zenith Software,27AACCZ1234R1ZS,INV-4509,124000,124000,Matched,0,Fully reconciled
+Citadel Finance,27AACCC5678R1ZR,INV-4510,84000,0,Late Filer,84000,Vendor usually files by 16th — monitor
+Horizon Logistics,27AACCH9012R1ZQ,INV-4512,96000,96000,Matched,0,Fully reconciled

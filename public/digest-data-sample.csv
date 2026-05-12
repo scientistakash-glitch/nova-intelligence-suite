@@ -1,0 +1,11 @@
+week_ending,vendor_name,ap_exceptions,ap_amount,ap_exception_type,gst_status,itc_at_risk,tds_status,tds_shortfall,vendor_risk,payment_held,notes
+17 Mar 2026,Pinnacle Industries,9,971000,Qty Mismatch,Mismatch,320000,Matched,0,High,No,Recurring qty issue 3 weeks
+17 Mar 2026,Prism Telecom,0,0,,Missing,241000,Mismatch,3000,High,No,Missing from 2B + TDS cert mismatch
+17 Mar 2026,Spectrum Events,0,0,,GSTIN Cancelled,218000,Missing,48000,Critical,Yes,GSTIN cancelled Feb — payment held
+17 Mar 2026,Meridian Motors,1,324000,GRN Pending,Mismatch,6000,Matched,0,Medium,No,GRN delay — vendor contacted
+17 Mar 2026,Evergreen Consumer Products,3,406500,Qty Mismatch,Mismatch,48000,Matched,0,Medium,No,Partial GRN correction in progress
+17 Mar 2026,Citadel Finance,0,0,,Late Filer,84000,Missing + Section Mismatch,84000,High,No,TDS 194C vs 194J dispute
+17 Mar 2026,Nexgen Technologies,1,186500,Rate Mismatch,Matched,0,Matched,0,Low,No,Rate mismatch AP only — 2B clean
+17 Mar 2026,Vanguard Steel Ltd,0,0,,Matched,0,Matched,0,Clean,No,Fully clean this week
+17 Mar 2026,Zenith Software,0,0,,Matched,0,Matched,0,Clean,No,Fully clean this week
+17 Mar 2026,Horizon Logistics,0,0,,Matched,0,Matched,0,Clean,No,Fully clean this week

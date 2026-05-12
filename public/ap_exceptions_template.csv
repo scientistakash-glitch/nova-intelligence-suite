@@ -1,0 +1,6 @@
+vendor_name,invoice_number,po_number,grn_number,invoice_amount,exception_type,exception_detail,week
+Pinnacle Industries,INV-4502,PO-8834,GRN-3302,324000,Qty Mismatch,GRN 80 units vs invoice 100,Week of 3 Mar
+Pinnacle Industries,INV-4507,PO-8841,GRN-3308,186500,Qty Mismatch,GRN 60 units vs invoice 100,Week of 10 Mar
+Pinnacle Industries,INV-4511,PO-8849,,241000,Qty Mismatch,GRN not received,Week of 17 Mar
+Meridian Motors,INV-4503,PO-8840,,324000,GRN Pending,Goods not yet received,Week of 10 Mar
+Evergreen Consumer Products,INV-4505,PO-8871,GRN-3318,186500,Qty Mismatch,GRN 40 units vs invoice 60,Week of 3 Mar

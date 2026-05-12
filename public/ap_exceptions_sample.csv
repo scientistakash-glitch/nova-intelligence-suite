@@ -1,0 +1,15 @@
+vendor_name,invoice_number,po_number,grn_number,invoice_amount,exception_type,exception_detail,week
+Pinnacle Industries,INV-4502,PO-8834,GRN-3302,120000,Qty Mismatch,GRN 80 units vs invoice 100,Week of 3 Mar
+Pinnacle Industries,INV-4507,PO-8841,GRN-3308,50000,Qty Mismatch,GRN 60 units vs invoice 100,Week of 10 Mar
+Pinnacle Industries,INV-4511,PO-8849,,80000,GRN Pending,GRN not received,Week of 17 Mar
+Pinnacle Industries,INV-4514,PO-8851,GRN-3312,15000,Rate Mismatch,Rate difference ₹15 per unit,Week of 17 Mar
+Pinnacle Industries,INV-4518,PO-8855,GRN-3316,20000,Qty Mismatch,GRN 90 units vs invoice 100,Week of 24 Mar
+Pinnacle Industries,INV-4521,PO-8860,GRN-3320,10000,Rate Mismatch,Rate difference ₹5 per unit,Week of 24 Mar
+Pinnacle Industries,INV-4524,PO-8865,,15000,GRN Pending,Goods not received,Week of 24 Mar
+Pinnacle Industries,INV-4527,PO-8870,GRN-3325,5000,Qty Mismatch,GRN 95 units vs invoice 100,Week of 24 Mar
+Pinnacle Industries,INV-4530,PO-8875,GRN-3330,5000,Rate Mismatch,Rate difference ₹2 per unit,Week of 24 Mar
+Meridian Motors,INV-4503,PO-8840,,6000,GRN Pending,Goods not yet received,Week of 10 Mar
+Evergreen Consumer Products,INV-4505,PO-8871,GRN-3318,30000,Qty Mismatch,GRN 40 units vs invoice 60,Week of 3 Mar
+Evergreen Consumer Products,INV-4509,PO-8880,GRN-3322,18000,Qty Mismatch,GRN 50 units vs invoice 60,Week of 10 Mar
+Nexgen Technologies,INV-4506,PO-8885,GRN-3327,100000,Rate Mismatch,Reconciled manually,Week of 10 Mar
+Citadel Finance,INV-4510,PO-8890,GRN-3335,84000,Duplicate,Duplicate invoice entry,Week of 17 Mar

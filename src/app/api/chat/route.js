@@ -48,9 +48,9 @@ ${digestData}
 
 Answer queries strictly using this ingested context. If a user asks about vendor risk, cross-reference their AP volume with their GST/TDS history from the templates. For example, Pinnacle Industries has Qty Mismatch issues. Keep responses highly concise, analytical, and action-oriented. Use a professional, direct tone. Do not hallucinate data that is not in the CSVs. If the user asks something outside the scope of the data, politely inform them that your current context is limited to the ingested AP, TDS, and GST templates.`;
 
-    // Call Claude 4.5 Haiku (using 3.5 latest ID for compatibility)
+    // Call Claude 4.5 Haiku
     const response = await anthropic.messages.create({
-      model: 'claude-3-5-haiku-latest',
+      model: 'claude-haiku-4-5',
       max_tokens: 1024,
       system: systemPrompt,
       messages: messages,

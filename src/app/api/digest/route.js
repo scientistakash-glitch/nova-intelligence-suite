@@ -97,7 +97,7 @@ Template for "cfoPack" (You must use these exact classes):
 Analyze the JSON data provided and generate the HTML strictly adhering to the classes above. Do not wrap the JSON object in markdown blocks.`;
 
     const response = await anthropic.messages.create({
-      model: 'claude-3-5-haiku-latest',
+      model: 'claude-haiku-4-5',
       max_tokens: 3000,
       system: systemPrompt,
       messages: [

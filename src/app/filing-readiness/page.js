@@ -277,18 +277,21 @@ export default function NovaDemo() {
             <strong>Nova changes that by instantly connecting the dots.</strong>
           </p>
 
-          <div className="animate-fade-up delay-300" style={{ display: 'flex', gap: '16px', justifyContent: 'center', marginBottom: '32px' }}>
+          <div className="animate-fade-up delay-300" style={{ display: 'flex', justifyContent: 'center', marginBottom: '32px' }}>
             <button className="nova-btn-primary pulse" onClick={loadSampleData}>
               Try with sample data
             </button>
+            {/* 
             <button className="nova-btn-secondary" onClick={() => fileInputApRef.current?.click()}>
               Upload my files <span>↑</span>
             </button>
+            */}
           </div>
           
           <input type="file" ref={fileInputApRef} style={{display:'none'}} accept=".csv" onChange={handleApUpload} />
           <input type="file" ref={fileInputGstRef} style={{display:'none'}} accept=".csv" onChange={handleGstUpload} />
           
+          {/*
           <div className="animate-fade-up delay-300" style={{ display: 'flex', gap: '24px', justifyContent: 'center' }}>
             <a href="/ap_exceptions_template.csv" download style={{ fontSize: '13px', color: 'var(--nova-muted)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px' }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
@@ -299,6 +302,7 @@ export default function NovaDemo() {
               Template: GSTR-2B
             </a>
           </div>
+          */}
         </div>
       </div>
     );

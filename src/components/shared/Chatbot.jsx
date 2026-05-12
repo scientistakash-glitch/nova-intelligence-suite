@@ -41,30 +41,47 @@ export default function Chatbot() {
     }, 1200);
   };
 
-  const handleChatSubmit = () => {
+  const handleChatSubmit = async () => {
     if (!inputValue.trim()) return;
 
     const userText = inputValue;
     setInputValue("");
-    setChatHistory(prev => [...prev, { role: 'user', content: userText }]);
+    
+    // Add user message to UI
+    const newUserMsg = { role: 'user', content: userText };
+    setChatHistory(prev => [...prev, newUserMsg]);
     setIsTyping(true);
 
-    setTimeout(() => {
+    // Filter history for API (only text messages)
+    const apiMessages = chatHistory
+      .filter(msg => msg.role === 'user' || (msg.role === 'assistant' && msg.type === 'text'))
+      .map(msg => ({ role: msg.role, content: msg.content }));
+    
+    apiMessages.push({ role: 'user', content: userText });
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: apiMessages })
+      });
+      
+      const data = await response.json();
+      
       setChatHistory(prev => [
         ...prev, 
-        { 
-          role: 'assistant', 
-          type: 'text', 
-          content: "I am currently running in demo mode.\n\nIn a live environment, Nova's conversational AI engine (powered by Claude 3.5 Haiku) would synthesize a customized response to your query by analyzing your ingested CSV templates." 
-        }
+        { role: 'assistant', type: 'text', content: data.reply || "Error: No response from AI." }
       ]);
-      
-      setTimeout(() => {
-        setChatHistory(prev => [...prev, { role: 'assistant', type: 'menu' }]);
-        setIsTyping(false);
-      }, 500);
-
-    }, 1500);
+    } catch (err) {
+      console.error(err);
+      setChatHistory(prev => [
+        ...prev, 
+        { role: 'assistant', type: 'text', content: "Network error occurred." }
+      ]);
+    } finally {
+      setIsTyping(false);
+      setTimeout(() => setChatHistory(prev => [...prev, { role: 'assistant', type: 'menu' }]), 1500);
+    }
   };
 
   const renderMessageContent = (msg) => {

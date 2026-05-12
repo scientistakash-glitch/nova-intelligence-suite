@@ -21,7 +21,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${dmSans.variable}`}>
-      <body style={{ margin: 0, padding: 0, display: 'flex', minHeight: '100vh', background: 'var(--nova-bg)' }}>
+      <body style={{ margin: 0, padding: 0, display: 'flex', height: '100vh', overflow: 'hidden', background: 'var(--nova-bg)' }}>
         <LeftNav />
         <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
           {children}

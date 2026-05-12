@@ -80,7 +80,41 @@ export default function TDSTracker() {
 
   const handleFileUpload = (e) => {
     const file = e.target.files?.[0];
-    if (file) loadSampleData(); // Fallback to sample logic for demo simplicity
+    if (file) {
+      setAppState('processing');
+      setTimeout(() => setLoadingStep(0), 500);
+
+      Papa.parse(file, {
+        header: true,
+        skipEmptyLines: true,
+        dynamicTyping: true,
+        complete: async (results) => {
+          setTimeout(() => setLoadingStep(1), 1500);
+          setTdsData(results.data);
+          setTimeout(() => setLoadingStep(2), 2500);
+          
+          setTimeout(async () => {
+            setLoadingStep(3);
+            try {
+              const aiResponse = await fetch('/api/tds-analyze', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ data: results.data })
+              });
+              const aiResult = await aiResponse.json();
+              setAiData(aiResult);
+              setTimeout(() => {
+                setLoadingStep(4);
+                setTimeout(() => setAppState('dashboard'), 800);
+              }, 1000);
+            } catch (err) {
+              console.error(err);
+              setAppState('dashboard');
+            }
+          }, 3500);
+        }
+      });
+    }
   };
 
   const handleGenerateNudge = (deductor) => {
@@ -139,7 +173,7 @@ export default function TDSTracker() {
               Try with sample data
             </button>
             <button className="nova-btn-secondary" onClick={() => fileInputRef.current?.click()}>
-              Upload Form 16A PDFs <span>↑</span>
+              Upload Form 16 CSV Sample <span>↑</span>
             </button>
           </div>
           

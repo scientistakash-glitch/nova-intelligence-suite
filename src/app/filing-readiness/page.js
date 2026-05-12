@@ -67,32 +67,16 @@ export default function NovaDemo() {
   const fileInputApRef = useRef(null);
   const fileInputGstRef = useRef(null);
 
-  const loadSampleData = async () => {
+  const runAnalysis = async (apParsed, gstParsed) => {
     setAppState('processing');
-    setLoadingStep(0);
+    setLoadingStep(2);
     
-    // Simulate parsing delays
-    const apRes = await fetch('/ap_exceptions_sample.csv');
-    const apText = await apRes.text();
-    const parsedAp = Papa.parse(apText, { header: true, dynamicTyping: true, skipEmptyLines: true }).data;
-    setApData(parsedAp);
-    
-    setTimeout(() => setLoadingStep(1), 500);
-    
-    const gstRes = await fetch('/gstr_2b_status_sample.csv');
-    const gstText = await gstRes.text();
-    const parsedGst = Papa.parse(gstText, { header: true, dynamicTyping: true, skipEmptyLines: true }).data;
-    setGstData(parsedGst);
-    
-    setTimeout(() => setLoadingStep(2), 1000);
-    
-    // Process Data
-    const apSummary = parsedAp.reduce((acc, row) => {
+    const apSummary = apParsed.reduce((acc, row) => {
       acc[row.vendor_name] = (acc[row.vendor_name] || 0) + 1;
       return acc;
     }, {});
     
-    const gstSummary = parsedGst.reduce((acc, row) => {
+    const gstSummary = gstParsed.reduce((acc, row) => {
       if(row.status !== 'Matched') {
         acc[row.vendor_name] = (acc[row.vendor_name] || 0) + row.itc_at_risk;
       }
@@ -100,8 +84,8 @@ export default function NovaDemo() {
     }, {});
     
     const dualRiskVendors = Object.keys(apSummary).filter(v => Object.keys(gstSummary).includes(v));
-    const totalBooked = parsedGst.reduce((sum, r) => sum + (r.booked_amount || 0), 0);
-    const totalAtRisk = parsedGst.reduce((sum, r) => sum + (r.itc_at_risk || 0), 0);
+    const totalBooked = gstParsed.reduce((sum, r) => sum + (r.booked_amount || 0), 0);
+    const totalAtRisk = gstParsed.reduce((sum, r) => sum + (r.itc_at_risk || 0), 0);
     const totalMatched = totalBooked - totalAtRisk;
 
     setTimeout(async () => {
@@ -127,10 +111,61 @@ export default function NovaDemo() {
     }, 1500);
   };
 
-  const handleFileUpload = (e) => {
-    // Simplified for demo: assuming users click both or just "Try Sample"
-    // To implement file reading properly, you'd read both files via FileReader
-    alert("In this demo, please use 'Try with sample data' for the full experience, or ensure your local dev has the API keys configured.");
+  const loadSampleData = async () => {
+    setAppState('processing');
+    setLoadingStep(0);
+    
+    const apRes = await fetch('/ap_exceptions_sample.csv');
+    const apText = await apRes.text();
+    const parsedAp = Papa.parse(apText, { header: true, dynamicTyping: true, skipEmptyLines: true }).data;
+    setApData(parsedAp);
+    
+    setTimeout(() => setLoadingStep(1), 500);
+    
+    const gstRes = await fetch('/gstr_2b_status_sample.csv');
+    const gstText = await gstRes.text();
+    const parsedGst = Papa.parse(gstText, { header: true, dynamicTyping: true, skipEmptyLines: true }).data;
+    setGstData(parsedGst);
+    
+    runAnalysis(parsedAp, parsedGst);
+  };
+
+  const handleApUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setAppState('processing');
+      setLoadingStep(0);
+      Papa.parse(file, {
+        header: true, dynamicTyping: true, skipEmptyLines: true,
+        complete: async (results) => {
+          setApData(results.data);
+          const gstRes = await fetch('/gstr_2b_status_sample.csv');
+          const gstText = await gstRes.text();
+          const parsedGst = Papa.parse(gstText, { header: true, dynamicTyping: true, skipEmptyLines: true }).data;
+          setGstData(parsedGst);
+          runAnalysis(results.data, parsedGst);
+        }
+      });
+    }
+  };
+
+  const handleGstUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setAppState('processing');
+      setLoadingStep(0);
+      Papa.parse(file, {
+        header: true, dynamicTyping: true, skipEmptyLines: true,
+        complete: async (results) => {
+          setGstData(results.data);
+          const apRes = await fetch('/ap_exceptions_sample.csv');
+          const apText = await apRes.text();
+          const parsedAp = Papa.parse(apText, { header: true, dynamicTyping: true, skipEmptyLines: true }).data;
+          setApData(parsedAp);
+          runAnalysis(parsedAp, results.data);
+        }
+      });
+    }
   };
 
   const currentReadiness = readinessOverride !== null 
@@ -251,7 +286,8 @@ export default function NovaDemo() {
             </button>
           </div>
           
-          <input type="file" ref={fileInputApRef} style={{display:'none'}} accept=".csv" onChange={handleFileUpload} />
+          <input type="file" ref={fileInputApRef} style={{display:'none'}} accept=".csv" onChange={handleApUpload} />
+          <input type="file" ref={fileInputGstRef} style={{display:'none'}} accept=".csv" onChange={handleGstUpload} />
           
           <div className="animate-fade-up delay-300" style={{ display: 'flex', gap: '24px', justifyContent: 'center' }}>
             <a href="/ap_exceptions_template.csv" download style={{ fontSize: '13px', color: 'var(--nova-muted)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px' }}>

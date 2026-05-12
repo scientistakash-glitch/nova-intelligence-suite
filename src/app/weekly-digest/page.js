@@ -68,7 +68,41 @@ export default function WeeklyDigest() {
 
   const handleFileUpload = (e) => {
     const file = e.target.files?.[0];
-    if (file) loadSampleData();
+    if (file) {
+      setAppState('processing');
+      setTimeout(() => setLoadingStep(0), 500);
+
+      Papa.parse(file, {
+        header: true,
+        skipEmptyLines: true,
+        dynamicTyping: true,
+        complete: async (results) => {
+          setTimeout(() => setLoadingStep(1), 1500);
+          setDigestData(results.data);
+          setTimeout(() => setLoadingStep(2), 2500);
+          
+          setTimeout(async () => {
+            setLoadingStep(3);
+            try {
+              const aiResponse = await fetch('/api/digest', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ data: results.data })
+              });
+              const aiResult = await aiResponse.json();
+              setAiData(aiResult);
+              setTimeout(() => {
+                setLoadingStep(4);
+                setTimeout(() => setAppState('dashboard'), 800);
+              }, 1000);
+            } catch (err) {
+              console.error(err);
+              setAppState('dashboard');
+            }
+          }, 3500);
+        }
+      });
+    }
   };
 
   if (appState === 'hook') {

@@ -16,6 +16,7 @@ export default function Chatbot() {
     }
   ]);
   const [isTyping, setIsTyping] = useState(false);
+  const [inputValue, setInputValue] = useState("");
   const endOfMessagesRef = useRef(null);
 
   useEffect(() => {
@@ -38,6 +39,32 @@ export default function Chatbot() {
       setChatHistory(prev => [...prev, { role: 'assistant', type: promptId }]);
       setIsTyping(false);
     }, 1200);
+  };
+
+  const handleChatSubmit = () => {
+    if (!inputValue.trim()) return;
+
+    const userText = inputValue;
+    setInputValue("");
+    setChatHistory(prev => [...prev, { role: 'user', content: userText }]);
+    setIsTyping(true);
+
+    setTimeout(() => {
+      setChatHistory(prev => [
+        ...prev, 
+        { 
+          role: 'assistant', 
+          type: 'text', 
+          content: "I am currently running in demo mode.\n\nIn a live environment, Nova's conversational AI engine (powered by Claude 3.5 Haiku) would synthesize a customized response to your query by analyzing your ingested CSV templates." 
+        }
+      ]);
+      
+      setTimeout(() => {
+        setChatHistory(prev => [...prev, { role: 'assistant', type: 'menu' }]);
+        setIsTyping(false);
+      }, 500);
+
+    }, 1500);
   };
 
   const renderMessageContent = (msg) => {
@@ -189,10 +216,18 @@ export default function Chatbot() {
               <input 
                 type="text" 
                 placeholder="Ask about compliance, TDS, or AP..." 
-                disabled
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') handleChatSubmit();
+                }}
                 style={{ flex: 1, padding: '10px 16px', borderRadius: '24px', border: '1px solid var(--nova-border)', outline: 'none', fontSize: '16px', fontFamily: 'inherit', background: 'var(--nova-bg)' }}
               />
-              <button disabled style={{ width: 38, height: 38, borderRadius: '50%', background: 'var(--nova-muted)', color: 'white', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'not-allowed' }}>
+              <button 
+                onClick={handleChatSubmit}
+                disabled={!inputValue.trim()}
+                style={{ width: 38, height: 38, borderRadius: '50%', background: inputValue.trim() ? 'var(--nova-navy)' : 'var(--nova-muted)', color: 'white', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: inputValue.trim() ? 'pointer' : 'not-allowed', transition: 'background 0.2s' }}
+              >
                 <ArrowRight size={18} />
               </button>
             </div>

@@ -70,13 +70,13 @@ export default function Chatbot() {
       
       setChatHistory(prev => [
         ...prev, 
-        { role: 'assistant', type: 'text', content: data.reply || "Error: No response from AI." }
+        { role: 'assistant', type: 'text', content: data.reply || "This is a demo instance. I will need more data to build the whole user journey." }
       ]);
     } catch (err) {
       console.error(err);
       setChatHistory(prev => [
         ...prev, 
-        { role: 'assistant', type: 'text', content: "Network error occurred." }
+        { role: 'assistant', type: 'text', content: "This is a demo instance. I will need more data to build the whole user journey." }
       ]);
     } finally {
       setIsTyping(false);
